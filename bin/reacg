@@ -1,3 +1,49 @@
 #!/usr/bin/env ruby
 
+require "bundler/setup"
 require 'reacg'
+require "thor"
+
+module Reacg
+  class CLI < Thor
+    desc "client", "Generates a language specific client"
+    method_option :target,
+                  :type => :string, 
+    				      :required => true,
+    				      :desc => "The target language for client ruby, java, python"
+  
+    method_option :config,
+                  :type => :string,  
+                  :required => true,
+                  :desc => "Path to the API config file from which the client is generated"
+    
+    def client
+      begin
+        config = YAML.load(File.open(options[:config]))
+        gclass = Reacg::Generators.const_get(options[:target].capitalize)
+        gclass.create_client(config)
+      rescue Errno::ENOENT
+        puts "Could not locate config file: #{options[:config]}"
+      end
+    end
+  
+    desc "scan", "Scrapes an API and creates a reacg config file"
+    method_option :entrypoint,
+                  :type => :string, 
+                  :required => true,
+                  :desc => "The target language for client ruby, java, python"
+  
+    method_option :username,
+                  :type => :string, 
+                  :desc => "The HTTP Basic username"
+  
+    method_option :password,
+                  :type => :string, 
+                  :desc => "The HTTP Basic password" 
+    def scan
+      puts "Creating reacg config for API @ #{options[:entrypoint]}"
+    end 
+  end
+end
+
+Reacg::CLI.start

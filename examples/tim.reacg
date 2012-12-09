@@ -1,0 +1,11 @@
+name: tim
+format: xml
+resources:
+  base_image:
+  image_version:
+  target_image:
+  provider_image:
+  template:
+endpoints:
+  entrypoint: http://localhost:3000/tim
+
