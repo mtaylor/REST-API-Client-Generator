@@ -42,6 +42,11 @@ module Reacg
                   :desc => "The HTTP Basic password" 
     def scan
       puts "Creating reacg config for API @ #{options[:entrypoint]}"
+    end
+
+    desc "targets", "Lists supported target languages"
+    def targets
+      puts "Ruby"
     end 
   end
 end

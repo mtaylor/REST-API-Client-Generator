@@ -1,4 +1,4 @@
-name: tim
+name: tim_client
 format: xml
 resources:
   base_image:
