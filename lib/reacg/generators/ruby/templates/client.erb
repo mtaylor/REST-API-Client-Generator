@@ -1,0 +1,7 @@
+<% @dependencies.each do |dep| %>
+require '<%= dep %>'
+<% end %>
+
+Dir[File.dirname(__FILE__) + '/**/*.rb'].each do |file|
+  require file
+end

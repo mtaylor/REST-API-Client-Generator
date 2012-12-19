@@ -1,0 +1,7 @@
+source "rubygems"
+
+gemspec
+
+<% @gems.each do |gem| %>
+gem '<%= gem[:name] %>', '<%= gem[:version]%>'
+<% end %>

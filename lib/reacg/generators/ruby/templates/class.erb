@@ -1,0 +1,24 @@
+<% #Define Modules %>
+<%  @class[:modules].each_index do |i| %>
+<%= ("  " * i) + "module #{@class[:modules][i]}" %>
+<% end %>
+
+<% # Define Class %>
+<%= "#{'  ' * @class[:modules].size} class #{@class[:name]} < #{@class[:super_class_name]}" %>
+<% # Set the indent level for this class %>
+<% @indent = '  ' * (@class[:modules].size + 1) %>
+<% # Set any attributes %>
+<%  @class[:attributes].each do |a| %>
+<%= "#{@indent} #{a[:name]}= #{a[:value]}" %>
+<% end %>
+
+<% # Define Validations %>
+<%  @class[:validations].each do |v| %>
+<%= "#{@indent} #{v[:validation]} :#{v[:attribute]}" %>
+<% end %>
+
+<%= "#{'  ' * @class[:modules].size} end" %>
+
+<%  @class[:modules].each_index do |i| %>
+<%= ("  " * (@class[:modules].size - 1 - i)) + "end" %>
+<% end %>

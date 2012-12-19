@@ -22,8 +22,9 @@ module Reacg
         config = YAML.load(File.open(options[:config]))
         gclass = Reacg::Generators.const_get(options[:target].capitalize)
         gclass.create_client(config)
-      rescue Errno::ENOENT
+      rescue Errno::ENOENT => e
         puts "Could not locate config file: #{options[:config]}"
+        raise e
       end
     end
   
@@ -46,7 +47,7 @@ module Reacg
 
     desc "targets", "Lists supported target languages"
     def targets
-      puts "Ruby"
+      puts "ruby"
     end 
   end
 end
